@@ -1,7 +1,7 @@
 Summary: The basic required files for the root user's directory
 Name: rootfiles
 Version: 8.1
-Release: 34%{?dist}
+Release: 35%{?dist}
 License: Public Domain
 
 # This is a Red Hat maintained package which is specific to
@@ -49,13 +49,17 @@ done
 %dir %{ROOTFILES_DIR}
 %{ROOTFILES_DIR}/.[A-Za-z]*
 %{_tmpfilesdir}/rootfiles.conf
-%ghost /root/.bash_logout
-%ghost /root/.bash_profile
-%ghost /root/.bashrc
-%ghost /root/.cshrc
-%ghost /root/.tcshrc
+%ghost %verify(not md5 size mtime) %attr(0644,root,root) /root/.bash_logout
+%ghost %verify(not md5 size mtime) %attr(0644,root,root) /root/.bash_profile
+%ghost %verify(not md5 size mtime) %attr(0644,root,root) /root/.bashrc
+%ghost %verify(not md5 size mtime) %attr(0644,root,root) /root/.cshrc
+%ghost %verify(not md5 size mtime) %attr(0644,root,root) /root/.tcshrc
 
 %changelog
+* Wed May 21 2025 Martin Osvald <mosvald@redhat.com> - 8.1-35
+- Fix file permissions and do not verify digest, file size
+  and modification time (RHEL-92548)
+
 * Wed Feb 12 2025 Martin Osvald <mosvald@redhat.com> - 8.1-34
 - Comment out empty if clause to prevent shell error (RHEL-58760)
 
